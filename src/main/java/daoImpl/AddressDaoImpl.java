@@ -4,6 +4,7 @@ import dao.AddressDao;
 import entity.Address;
 import util.JdbcUtils;
 
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -30,7 +31,7 @@ public class AddressDaoImpl implements AddressDao {
             preparedStatement.setString(10,address.getIsDefault());
             preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         } finally {
             JdbcUtils.close(preparedStatement, connection);

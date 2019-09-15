@@ -4,6 +4,7 @@ import dao.UserDao;
 import entity.User;
 import util.JdbcUtils;
 
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -28,7 +29,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setInt(6,user.getRole());
             preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         } finally {
             JdbcUtils.close(preparedStatement, connection);
@@ -50,7 +51,7 @@ public class UserDaoImpl implements UserDao {
                 i = resultSet.getInt(1);
                 System.out.println(i);
             }
-        } catch (SQLException e) {
+        } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         } finally {
             JdbcUtils.close(preparedStatement, connection);
@@ -77,7 +78,7 @@ public class UserDaoImpl implements UserDao {
                 u.setName(resultSet.getString(2));
                 u.setRole(resultSet.getInt(3));
             }
-        } catch (SQLException e) {
+        } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         } finally {
             JdbcUtils.close(preparedStatement, connection);
@@ -97,7 +98,7 @@ public class UserDaoImpl implements UserDao {
             preparedStatement.setString(2, id);
             preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         } finally {
             JdbcUtils.close(preparedStatement, connection);

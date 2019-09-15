@@ -2,8 +2,10 @@ package util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.Properties;
+import org.postgresql.*;
 
 public class JdbcUtils {
 
@@ -14,7 +16,7 @@ public class JdbcUtils {
 
     static{
         Properties prop = new Properties();
-        InputStream in = JdbcUtils.class.getResourceAsStream("/a.properties");
+        InputStream in = JdbcUtils.class.getResourceAsStream("a.properties");
 
 
         try {
@@ -25,14 +27,13 @@ public class JdbcUtils {
             url = prop.getProperty("url");
             dv = prop.getProperty("driver");
 
-            Class.forName(dv);
-        } catch (IOException | ClassNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-    public static Connection getconn() throws SQLException {
-        Connection connection = DriverManager.getConnection(url,user,password);
+    public static Connection getconn() throws URISyntaxException, SQLException {
+        Connection connection = DriverManager.getConnection(url);
         System.out.println(connection);
         return connection;
 
@@ -77,5 +78,9 @@ public class JdbcUtils {
                 e.printStackTrace();
             }
         }
+    }
+    
+    public static void main(String[] args) throws Exception {
+    	JdbcUtils.getconn();
     }
 }

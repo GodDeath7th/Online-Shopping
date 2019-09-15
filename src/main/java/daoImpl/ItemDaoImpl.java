@@ -4,6 +4,7 @@ import dao.ItemDao;
 import entity.Items;
 import util.JdbcUtils;
 
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class ItemDaoImpl implements ItemDao {
             preparedStatement.setString(7,items.getDescription());
             preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         } finally {
             JdbcUtils.close(preparedStatement, connection);

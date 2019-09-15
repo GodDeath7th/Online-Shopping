@@ -4,6 +4,7 @@ import dao.CategoryDao;
 import entity.Categroy;
 import util.JdbcUtils;
 
+import java.net.URISyntaxException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 public class CategoryDaoImpl implements CategoryDao {
 
     @Override
-    public void addCategort(Categroy categroy) {
+    public void addCategort(Categroy categroy){
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -23,7 +24,7 @@ public class CategoryDaoImpl implements CategoryDao {
             preparedStatement.setInt(3, categroy.getNumber());
             preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         } finally {
             JdbcUtils.close(preparedStatement, connection);
@@ -51,7 +52,7 @@ public class CategoryDaoImpl implements CategoryDao {
             }
 
 
-        } catch (SQLException e) {
+        } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         }
         return list;
@@ -69,7 +70,7 @@ public class CategoryDaoImpl implements CategoryDao {
             preparedStatement.setString(2, id);
             preparedStatement.executeUpdate();
 
-        } catch (SQLException e) {
+        } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         } finally {
             JdbcUtils.close(preparedStatement, connection);
