@@ -15,7 +15,7 @@
        <h1>----------------------------------------------------</h1>
        <%
            if(session.getAttribute("user") == null){
-        	   out.println("<a href = 'login.jsp'>click here to login</a>");
+        	   out.println("<a href = 'Login.jsp'>click here to login</a>");
            }
            else{
         	   User user = (User)session.getAttribute("user");
