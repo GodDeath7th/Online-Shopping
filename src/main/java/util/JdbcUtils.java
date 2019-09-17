@@ -23,11 +23,10 @@ public class JdbcUtils {
 
         try {
             prop.load(in);
-            System.out.println(in);
-            user = prop.getProperty("username");
-            password = prop.getProperty("password");
+            //user = prop.getProperty("username");
+            //password = prop.getProperty("password");
             url = prop.getProperty("url");
-            localurl = prop.getProperty("localurl");
+            //localurl = prop.getProperty("localurl");
 
         } catch (IOException e) {
             e.printStackTrace();
