@@ -12,25 +12,11 @@ import entity.User;
 public class JdbcUtils {
 
     private static String url = null;
-    private static String user = null;
-    private static String password = null;
     private static String localurl = null;
 
     static{
-        Properties prop = new Properties();
-        InputStream in = JdbcUtils.class.getResourceAsStream("a.properties");
 
-
-        try {
-            prop.load(in);
-            //user = prop.getProperty("username");
-            //password = prop.getProperty("password");
-            url = prop.getProperty("url");
-            //localurl = prop.getProperty("localurl");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        	url = "jdbc:postgresql://ec2-54-221-214-3.compute-1.amazonaws.com:5432/d1gm96c46b6ikh?sslmode=require&user=xhwdgutlrebzgc&password=c3b13cd8f5fdf82e4bd1fb4d57fe3ea3fce4b80be03a1daae4909a0902d3e729";
 
     }
     public static Connection getconn() throws URISyntaxException, SQLException {
