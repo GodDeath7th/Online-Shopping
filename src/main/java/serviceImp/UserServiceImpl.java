@@ -13,9 +13,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void register(User user) {
         UserDaoImpl userDao = new UserDaoImpl();
-        user.setId(Util.getId());
         user.setDateCreate(Util.getDate());
-        user.setRole(1);
         userDao.addUser(user);
     }
 
@@ -32,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public void updateAvatar(String id, String name) {
+    public void updateAvatar(int id, String name) {
         userDao.updateAvatar(id,name);
     }
 

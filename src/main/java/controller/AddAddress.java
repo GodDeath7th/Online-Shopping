@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
-@WebServlet("/addAddress")
 public class AddAddress extends HttpServlet {
     private AddressServiceImpl service;
     private Address address;
@@ -25,7 +23,7 @@ public class AddAddress extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User u;
         u = (User)req.getSession().getAttribute("u");
-        String userId = u.getId();
+        int userId = u.getId();
         String accept = req.getParameter("accept");
         String province = req.getParameter("province");
         String city = req.getParameter("city");

@@ -27,7 +27,7 @@ public class CategoryDaoImpl implements CategoryDao {
         } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         } finally {
-            JdbcUtils.close(preparedStatement, connection);
+            JdbcUtils.close(connection);
         }
     }
 
@@ -73,7 +73,7 @@ public class CategoryDaoImpl implements CategoryDao {
         } catch (URISyntaxException | SQLException e) {
             e.printStackTrace();
         } finally {
-            JdbcUtils.close(preparedStatement, connection);
+            JdbcUtils.close(connection);
         }
     }
 }

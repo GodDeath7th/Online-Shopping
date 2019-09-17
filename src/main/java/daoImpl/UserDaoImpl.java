@@ -19,20 +19,18 @@ public class UserDaoImpl implements UserDao {
         PreparedStatement preparedStatement = null;
         try {
             connection = JdbcUtils.getconn();
-            String sql = "insert into user(id,name,password,phoneNumber,dateCreate,role)values(?,?,?,?,?,?);";
+            String sql = "insert into member(name,password,phone_number,date_create)values(?,?,?,?);";
             preparedStatement = (PreparedStatement) connection.prepareStatement(sql);
-            preparedStatement.setString(1, user.getId());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getPassword());
-            preparedStatement.setString(4, user.getPhoneNumber());
-            preparedStatement.setString(5, user.getDateCreate());
-            preparedStatement.setInt(6,user.getRole());
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getPhoneNumber());
+            preparedStatement.setString(4, user.getDateCreate());
             preparedStatement.executeUpdate();
 
         } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         } finally {
-            JdbcUtils.close(preparedStatement, connection);
+            JdbcUtils.close(connection);
         }
     }
 
@@ -54,7 +52,7 @@ public class UserDaoImpl implements UserDao {
         } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         } finally {
-            JdbcUtils.close(preparedStatement, connection);
+            JdbcUtils.close(connection);
         }
         return i;
     }
@@ -67,41 +65,42 @@ public class UserDaoImpl implements UserDao {
         User u = null;
         try {
             connection = JdbcUtils.getconn();
-            String sql = "select id,name,role from user WHERE name = ? and password = ?";
+            String sql = "select * from member WHERE name = ? and password = ?";
             preparedStatement = (PreparedStatement) connection.prepareStatement(sql);
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, password);
             ResultSet resultSet= preparedStatement.executeQuery();
             while(resultSet.next()){
                 u = new User();
-                u.setId(resultSet.getString(1));
-                u.setName(resultSet.getString(2));
-                u.setRole(resultSet.getInt(3));
+                u.setId(resultSet.getInt("id"));
+                u.setName(resultSet.getString("name"));
+                u.setPassword(resultSet.getString("password"));
+                return u;
             }
         } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         } finally {
-            JdbcUtils.close(preparedStatement, connection);
+            JdbcUtils.close(connection);
         }
-        return u;
+        return null;
     }
 
     @Override
-    public void updateAvatar(String id, String userImage) {
+    public void updateAvatar(int id, String userImage) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
             connection = JdbcUtils.getconn();
-            String sql = "UPDATE User set avatar =? where id = ?;";
+            String sql = "UPDATE member set avatar =? where id = ?;";
             preparedStatement = (PreparedStatement) connection.prepareStatement(sql);
             preparedStatement.setString(1, userImage);
-            preparedStatement.setString(2, id);
+            preparedStatement.setInt(2, id);
             preparedStatement.executeUpdate();
 
         } catch (URISyntaxException |SQLException e) {
             e.printStackTrace();
         } finally {
-            JdbcUtils.close(preparedStatement, connection);
+            JdbcUtils.close(connection);
         }
     }
 

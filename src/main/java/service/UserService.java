@@ -9,7 +9,7 @@ public interface UserService {
 
     boolean isexist(String name);
 
-    void updateAvatar(String id,String name);
+    void updateAvatar(int id,String name);
 
 
 }

@@ -1,6 +1,6 @@
 package controller;
 
-import entity.Items;
+import entity.Item;
 import serviceImp.ItemAddServiceImpl;
 
 import javax.servlet.ServletException;
@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
-@WebServlet("/addItems")
 public class AddItem extends HttpServlet {
-    private Items items;
+    private Item items;
     ItemAddServiceImpl itemAddService = new ItemAddServiceImpl();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -21,7 +21,7 @@ public class AddItem extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        items = new Items();
+        Item item = new Item();
         String name = req.getParameter("itemName");
         String itemCategory = req.getParameter("item_category");
         String itemId = req.getParameter("item_id");
@@ -31,14 +31,13 @@ public class AddItem extends HttpServlet {
         Integer stock = Integer.valueOf(stockStr);
         String description = req.getParameter("description");
 
-        items.setName(name);
-        items.setCategoryId(itemCategory);
-        items.setItemId(itemId);
-        items.setPrice(price);
-        items.setStock(stock);
-        items.setDescription(description);
+        item.setName(name);
+        item.setCategory(itemCategory);
+        item.setPrice(price);
+        item.setStock(stock);
+        item.setDescription(description);
 
-        itemAddService.addItem(items);
+        itemAddService.addItem(item, true);
 
         resp.sendRedirect("item_list.jsp");
     }

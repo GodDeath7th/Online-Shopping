@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Locale;
 
 
-@WebServlet("/addCategory")
 public class AddCategroy extends HttpServlet {
     private CategoryServiceImp categoryServiceImp =new CategoryServiceImp();
 

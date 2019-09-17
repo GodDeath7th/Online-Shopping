@@ -1,9 +1,7 @@
+/controller/
 /util/
 /daoImpl/
+/dao/
+/entity/
 /serviceImp/
 /service/
-/entity/
-/controller/
-/dao/
-/launch/
-/servlet/

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/register")
 public class UserRegisterController extends HttpServlet {
 
     private UserServiceImpl userService = new UserServiceImpl();

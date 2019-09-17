@@ -10,7 +10,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Override
     public void addAddress(Address address) {
-        address.setId(Util.getId());
+        address.setId(1);
         if(address.getIsDefault()==null){
             address.setIsDefault("2");
         }

@@ -1,15 +1,26 @@
 package entity;
 
 public class User {
-    private String id;
+    private int id;
     private String name;
     private String password;
     private String phoneNumber;
-    private float money;
     private String userImage;
     private String dateCreate;
     private String Avatar;
-
+    
+    public User() {}
+    
+    /*public User(String id, String name, String password, String phoneNumber, String userImage, String dateCreate, String Avatar) {
+    	this.id = id;
+    	this.name = name;
+    	this.password = password;
+    	this.phoneNumber = phoneNumber;
+    	this.userImage = userImage;
+    	this.dateCreate = dateCreate;
+    	this.Avatar = Avatar;
+    }*/
+    
     public String getAvatar() {
         return Avatar;
     }
@@ -18,14 +29,12 @@ public class User {
         Avatar = avatar;
     }
 
-    private Integer role;
 
-
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -53,14 +62,6 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public float getMoney() {
-        return money;
-    }
-
-    public void setMoney(float money) {
-        this.money = money;
-    }
-
     public String getUserImage() {
         return userImage;
     }
@@ -75,13 +76,5 @@ public class User {
 
     public void setDateCreate(String dateCreate) {
         this.dateCreate = dateCreate;
-    }
-
-    public Integer getRole() {
-        return role;
-    }
-
-    public void setRole(Integer role) {
-        this.role = role;
     }
 }

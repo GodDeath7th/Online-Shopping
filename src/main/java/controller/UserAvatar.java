@@ -13,7 +13,6 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 
-@WebServlet("/avatar")
 @MultipartConfig
 public class UserAvatar extends HttpServlet {
 
@@ -28,7 +27,7 @@ public class UserAvatar extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User u = new User();
         u = (User)req.getSession().getAttribute("u");
-        String userId = u.getId();
+        int userId = u.getId();
         System.out.println(userId);
         String str = "";
         try {

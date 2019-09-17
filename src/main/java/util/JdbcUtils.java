@@ -7,12 +7,14 @@ import java.sql.*;
 import java.util.Properties;
 import org.postgresql.*;
 
+import entity.User;
+
 public class JdbcUtils {
 
     private static String url = null;
     private static String user = null;
     private static String password = null;
-    private static String dv = null;
+    private static String localurl = null;
 
     static{
         Properties prop = new Properties();
@@ -25,7 +27,7 @@ public class JdbcUtils {
             user = prop.getProperty("username");
             password = prop.getProperty("password");
             url = prop.getProperty("url");
-            dv = prop.getProperty("driver");
+            localurl = prop.getProperty("localurl");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,14 +41,15 @@ public class JdbcUtils {
 
     }
 
-    public static void close(Statement statement, Connection connection){
+    public static void close(Connection connection){
+    	/*
         if(statement != null) {
             try {
                 statement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
         if(connection != null){
             try {
                 connection.close();
@@ -55,29 +58,5 @@ public class JdbcUtils {
             }
         }
     }
-
-    public static void close(PreparedStatement preparedStatement, Connection connection, ResultSet result) {
-        if(preparedStatement != null){
-            try {
-                preparedStatement.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if(connection != null){
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        if(result != null){
-            try {
-                result.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    
+       
 }
