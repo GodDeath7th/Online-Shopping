@@ -20,7 +20,7 @@
            }
 		   ArrayList<Item> itemList = ((ItemAddServiceImpl)session.getAttribute("item_service")).getItem(id);
            session.setAttribute("itemList", itemList);
-           response.sendRedirect("index.jsp");
+           response.sendRedirect("item-list.jsp");
 		   
            /*if(items.size() == 0){
         	   out.println("<h1>you don't have any item now</h1>");
