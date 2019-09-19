@@ -22,7 +22,7 @@
    	       else{
    	    	   String errorMessage = "true"; 
    	    	   session.setAttribute("login_error", errorMessage);
-   	    	   response.sendRedirect("Login.jsp");
+   	    	   response.sendRedirect("index.jsp");
    	       }
    	   %>
    </body>
