@@ -17,12 +17,12 @@
    	       User user = new UserLogin().login(username, password);
    	       if(user != null){
    	           session.setAttribute("user", user);
-   	           response.sendRedirect("index.jsp");
+   	           response.sendRedirect("item.jsp");
    	       }
    	       else{
    	    	   String errorMessage = "true"; 
    	    	   session.setAttribute("login_error", errorMessage);
-   	    	   response.sendRedirect("login.jsp");
+   	    	   response.sendRedirect("Login.jsp");
    	       }
    	   %>
    </body>

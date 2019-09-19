@@ -14,18 +14,23 @@
    <body>
        <% 
            Item item = new Item();
-           item.setUserId(Integer.parseInt(request.getParameter("userId")));
+           item.setUserId(((User)session.getAttribute("user")).getId());
            item.setName(request.getParameter("name"));
            item.setCategory(request.getParameter("category"));
            item.setPrice(Float.parseFloat(request.getParameter("price")));
            item.setStock(Integer.parseInt(request.getParameter("stock")));
            item.setDescription(request.getParameter("description"));
-           
+           out.println(item.getId());
+           out.println(item.getName());
+           out.println(item.getCategory());
+           out.println(item.getPrice());
+           out.println(item.getStock());
+           out.println(item.getDescription());
            if(((ItemAddServiceImpl)session.getAttribute("item_service")).addItem(item, true)){
         	   response.sendRedirect("item.jsp");
            }
            else{
-        	   response.sendRedirect("item-add.jsp");
+        	   response.sendRedirect("add-item.jsp");
            }
        %>
    </body>

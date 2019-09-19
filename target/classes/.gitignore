@@ -1,8 +1,9 @@
 /controller/
-/util/
-/daoImpl/
 /dao/
+/daoImpl/
 /entity/
-/serviceImp/
-/service/
 /launch/
+/service/
+/serviceImp/
+/util/
+/META-INF/

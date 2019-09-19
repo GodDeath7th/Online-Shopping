@@ -25,7 +25,7 @@
         	   response.sendRedirect("item.jsp");
            }
            else{
-        	   response.sendRedirect("item-update.jsp");
+        	   response.sendRedirect("update-item.jsp");
            }
        %>
    </body>

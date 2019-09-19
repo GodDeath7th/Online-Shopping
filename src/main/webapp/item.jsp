@@ -18,9 +18,11 @@
                ItemAddServiceImpl itemService = new ItemAddServiceImpl();
                session.setAttribute("item_service", itemService);
            }
-		   ArrayList<Item> items = ((ItemAddServiceImpl)session.getAttribute("item_service")).getItem(id);
-           
-           if(items.size() == 0){
+		   ArrayList<Item> itemList = ((ItemAddServiceImpl)session.getAttribute("item_service")).getItem(id);
+           session.setAttribute("itemList", itemList);
+           response.sendRedirect("index.jsp");
+		   
+           /*if(items.size() == 0){
         	   out.println("<h1>you don't have any item now</h1>");
            }
            else{
@@ -43,7 +45,8 @@
         		   
         	   }
            }
-           out.println("<a href = 'item-add.jsp'>add</a>"); 
+           out.println("<a href = 'item-add.jsp'>add</a>"); */
        %>
+       
    </body>
 </html>
