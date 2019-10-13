@@ -61,7 +61,7 @@
      <form action = "login-process.jsp">
       <div class="form-group">
        <label >Phone Number</label>
-       <input type="text" class="form-control" name = "phone_number" placeholder="Username">
+       <input type="text" class="form-control" name = "phone_number" placeholder="Phone number">
        <small id="emailHelp" class="form-text text-muted">We'll never share your phone number with anyone else.</small>
       </div>
       <div class="form-group">
