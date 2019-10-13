@@ -9,7 +9,7 @@
     String username = request.getParameter("username");
     
     if(cm.editProfileCtr.editProfile(userId, username)){
-    	response.sendRedirect("logout-process.jsp?info=re_login");
+    	response.sendRedirect("logout-process.jsp?from_url=profile_edit.jsp");
     }
     else{
     	response.sendRedirect("profile-edit.jsp?info=fail");
