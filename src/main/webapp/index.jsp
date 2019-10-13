@@ -1,120 +1,129 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: apple
-  Date: 8/21/19
-  Time: 12:07 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import= "controller.ControllerManager" %>
+<%@ page import = "dto.UserAuthentication" %>
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
+    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet">
+</head>
 
-    <!-- Title Page-->
-    <title>Login</title>
-
-    <!-- Fontfaces CSS-->
-    <link href="css/font-face.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
-    <link href="vendor/font-awesome-5/css/fontawesome-all.min.css" rel="stylesheet" media="all">
-    <link href="vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
-
-    <!-- Bootstrap CSS-->
-    <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
-
-    <!-- Vendor CSS-->
-    <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
-    <link href="vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet" media="all">
-    <link href="vendor/wow/animate.css" rel="stylesheet" media="all">
-    <link href="vendor/css-hamburgers/hamburgers.min.css" rel="stylesheet" media="all">
-    <link href="vendor/slick/slick.css" rel="stylesheet" media="all">
-    <link href="vendor/select2/select2.min.css" rel="stylesheet" media="all">
-    <link href="vendor/perfect-scrollbar/perfect-scrollbar.css" rel="stylesheet" media="all">
-
-    <!-- Main CSS-->
-    <link href="css/theme.css" rel="stylesheet" media="all">
-
-    <script src="js/jquery-3.4.1.min.js"></script>
-
-<body class="animsition">
-<div class="page-wrapper">
-    <div class="page-content--bge5">
-        <div class="container">
-            <div class="login-wrap">
-                <div class="login-content">
-                    <div class="login-logo">
-                        <a href="#">
-                            <img src="images/icon/logo.png" alt="K-SHOP">
-                        </a>
-                    </div>
-                    <div class="login-form">
-                        <form action="login-process.jsp" method="post">
-                            <div class="form-group">
-                                <label>Username</label>
-                                <input class="au-input au-input--full" type="text" id="name" name="username" placeholder="Username">
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input class="au-input au-input--full" type="password" name="password" placeholder="Password">
-                            </div>
-                            <div class="login-checkbox">
-                                <label>
-                                    <input type="checkbox" name="remember">Remember Me
-                                </label>
-                                <label>
-                                    <a href="#">Forgotten Password?</a>
-                                </label>
-                            </div>
-                            <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">sign in</button>
-
-                        </form>
-                        <div class="register-link">
-                            <p>
-                                Don't you have account?
-                                <a href="register.jsp">Sign Up Here</a>
-                            </p>
-                            <p>Please use username=kevinzzz, Password=zzz1994 to test</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<body>
+	<script src="vendor/jquery-3.2.1.min.js"></script>
+    <script src="vendor/bootstrap-4.1/popper.min.js"></script>
+    <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
+    <%
+		// initialize controller manager at first so this manager can be accessd over whole application
+		if(application.getAttribute("controller_manager") == null){
+			ControllerManager cm = new ControllerManager();
+			application.setAttribute("controller_manager", cm);
+		}
+    	String url = "";
+    	if((UserAuthentication)session.getAttribute("user_auth") != null){
+			if(((UserAuthentication)session.getAttribute("user_auth")).getUserType().equals("seller")){
+				url = "#";
+			}
+			else{
+	    		url = "index.jsp";
+			}
+    	}
+    	if(request.getParameter("info") != null){
+			if(request.getParameter("info").equals("re_login")){
+				out.print("<script>alert('Edit Profile Success! Please re-login.')</script>");
+			}
+		}
+	%>
+	
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="<%=url%>">K-SHOP</a>
+      	<div class= "collapse navbar-collapse">
+      	<%
+      		if(session.getAttribute("user_auth") != null){
+      			if(((UserAuthentication)session.getAttribute("user_auth")).getUserType().equals("buyer")){
+      				ControllerManager cm = (ControllerManager)application.getAttribute("controller_manager");
+      				out.print(cm.navbarCtr.setNavbarContent("buyer"));
+      			}
+      			else if(((UserAuthentication)session.getAttribute("user_auth")).getUserType().equals("seller")){
+      				ControllerManager cm = (ControllerManager)application.getAttribute("controller_manager");
+      				out.print(cm.navbarCtr.setNavbarContent("seller"));
+      			}
+      			else{}
+      		}
+      		else{
+      			ControllerManager cm = (ControllerManager)application.getAttribute("controller_manager");
+  				out.print(cm.navbarCtr.setNavbarContent("guest"));
+      		}
+      	%>
         </div>
-    </div>
-
-</div>
-
-<!-- Jquery JS-->
-<script src="vendor/jquery-3.2.1.min.js"></script>
-<!-- Bootstrap JS-->
-<script src="vendor/bootstrap-4.1/popper.min.js"></script>
-<script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
-<!-- Vendor JS       -->
-<script src="vendor/slick/slick.min.js">
-</script>
-<script src="vendor/wow/wow.min.js"></script>
-<script src="vendor/animsition/animsition.min.js"></script>
-<script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
-</script>
-<script src="vendor/counter-up/jquery.waypoints.min.js"></script>
-<script src="vendor/counter-up/jquery.counterup.min.js">
-</script>
-<script src="vendor/circle-progress/circle-progress.min.js"></script>
-<script src="vendor/perfect-scrollbar/perfect-scrollbar.js"></script>
-<script src="vendor/chartjs/Chart.bundle.min.js"></script>
-<script src="vendor/select2/select2.min.js">
-</script>
-
-<!-- Main JS-->
-<script src="js/main.js"></script>
-
+    </nav>
+	
+	<form action = "item.jsp">
+	<div class = "container" id = "search-area" style = "margin: 100px auto">
+     <div class="input-group input-group-lg">
+      <input type="text" class="form-control" placeholder="The goods you want to buy ..." name = "range">
+      <div class="input-group-append">
+       <button class="btn btn-success" type="submit">Search</button>
+      </div>
+     </div>  
+	</div>
+	</form>
+	
+	<div class = "container" id = "category">
+	 <h1>What We Sell</h1>
+	 <div class = "row" id = "first_row" style = "margin:40px auto">
+	  <div class="card" style="width: 20rem; margin:1px auto">
+       <img class="card-img-top" src="image/eletronic-product.jpg" alt="Card image cap">
+       <div class="card-body">
+        <h5 class="card-title">High-tech Products</h5>
+        <p class="card-text">High-tech is new fashion, start your smart life now.</p>
+       </div>
+      </div>
+	  <div class="card" style="width: 20rem; margin:1px auto">
+       <img class="card-img-top" src="image/clothes.jpg" alt="Card image cap">
+       <div class="card-body">
+        <h5 class="card-title">Clothes</h5>
+        <p class="card-text">You are what you wear, get yourself gorgeous here.</p>
+       </div>
+      </div>
+	  <div class="card" style="width: 20rem; margin:1px auto">
+       <img class="card-img-top" src="image/cosmetics.jpg" alt="Card image cap">
+       <div class="card-body">
+        <h5 class="card-title">Cosmetics</h5>
+        <p class="card-text">Being attractive, being elegant, being beautiful.</p>
+       </div>
+	  </div>	 
+	 </div>
+	 <div class = "row" id = "second_row" style = "margin:20px auto">
+	  <div class="card" style="width: 20rem; margin:1px auto">
+       <img class="card-img-top" src="image/food.jpg" alt="Card image cap">
+       <div class="card-body">
+        <h5 class="card-title">Food</h5>
+        <p class="card-text">Delicious food makes every energetic day. </p>
+       </div>
+	  </div>
+	  <div class="card" style="width: 20rem; margin:1px auto">
+       <img class="card-img-top" src="image/drink.jpg" alt="Card image cap">
+       <div class="card-body">
+        <h5 class="card-title">Drink</h5>
+        <p class="card-text">Enjoy a sunshine afternoon with drink you love.</p>
+       </div>
+	  </div>
+	  <div class="card" style="width: 20rem; margin:1px auto">
+       <img class="card-img-top" src="image/explore.jpg" alt="Card image cap">
+       <div class="card-body">
+        <h5 class="card-title">Others</h5>
+        <p class="card-text">Search and find what you want !</p>
+        <a href='item.jsp' class='btn btn-primary'>Explore</a>
+       </div>
+	  </div>
+	 </div>
+	</div>
+	<%
+		
+	%>
 </body>
-
-
 
 </html>

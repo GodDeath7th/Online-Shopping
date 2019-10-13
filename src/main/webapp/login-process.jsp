@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="controller.UserLogin" %>
-<%@ page import="entity.User" %>
+<%@ page import="controller.ControllerManager" %>
+<%@ page import="dto.UserAuthentication" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,18 +12,26 @@
    <body>
 
    	   <%
-   	       String username = request.getParameter("username");
-   	       String password = request.getParameter("password");
-   	       User user = new UserLogin().login(username, password);
-   	       if(user != null){
-   	           session.setAttribute("user", user);
-   	           response.sendRedirect("item.jsp");
-   	       }
-   	       else{
-   	    	   String errorMessage = "true"; 
-   	    	   session.setAttribute("login_error", errorMessage);
-   	    	   response.sendRedirect("index.jsp");
-   	       }
+   	       ControllerManager cm = (ControllerManager)application.getAttribute("controller_manager");
+   	   	   UserAuthentication thisUserAuth = 
+   	   			cm.loginCtr.login(request.getParameter("phone_number"),request.getParameter("password"),request.getParameter("user_type"));
+   	   	   if(thisUserAuth != null){
+   	   		   if(thisUserAuth.getId() == -1){
+   	   			   response.sendRedirect("login.jsp?login_info=logged");
+   	   		   }
+   	   		   else{
+   	   		   	  session.setAttribute("user_auth", thisUserAuth);
+   	   		   	  if(thisUserAuth.getUserType().equals("buyer")){
+   	   		      	response.sendRedirect("index.jsp");
+   	   		   	  }
+   	   		   	  else{
+   	   		   		response.sendRedirect("seller-personal.jsp"); 
+   	   		   	  }
+   	   		   }
+   	   	   }
+   	   	   else{
+	   		   response.sendRedirect("login.jsp?login_info=fail");
+   	   	   }
    	   %>
    </body>
 </html>

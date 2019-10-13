@@ -1,27 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="serviceImp.ItemAddServiceImpl" %>
-<%@ page import="entity.User" %>
-<%@ page import="entity.Item" %>
+<%@ page import="unitofwork.SellerOrientedItemUnitOfWork" %>
+<%@ page import="dto.User" %>
+<%@ page import="dto.SellerOrientedItem" %>
+<%@ page import="dto.UserAuthentication" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="controller.ControllerManager" %>
 
-<!DOCTYPE html>
-<html>
-   <head>
-       <title>K-SHOP</title>
-       <link rel="stylesheet" href="vendor/bootstrap-4.1/bootstrap.min.css">
-   </head>
-   
-   <body>
-       <% 
-           Item item = new Item();
-           item.setId(Integer.parseInt(request.getParameter("id")));
-           
-           if(((ItemAddServiceImpl)session.getAttribute("item_service")).deleteItem(item, true)){
-        	   response.sendRedirect("item.jsp");
-           }
-           else{
-        	   response.sendRedirect("item.jsp");
-           }
-       %>
-   </body>
-</html>
+<%
+	ControllerManager cm = (ControllerManager)application.getAttribute("controller_manager");
+	String itemId = request.getParameter("item_id");
+
+	if(cm.deleteItemCtr.deleteItem(itemId)){
+		response.sendRedirect("seller-personal.jsp?display=item");
+	}
+	else{
+		response.sendRedirect("seller-personal.jsp?display=item");
+	}
+%>

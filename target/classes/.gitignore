@@ -1,9 +1,5 @@
 /controller/
-/dao/
-/daoImpl/
-/entity/
-/launch/
-/service/
-/serviceImp/
-/util/
-/META-INF/
+/domainlogic/
+/dto/
+/facade/
+/databaseconnection/
