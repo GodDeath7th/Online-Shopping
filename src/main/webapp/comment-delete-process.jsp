@@ -4,6 +4,7 @@
 <%@ page import = "dto.UserAuthentication" %>
 <%
 	ControllerManager cm = (ControllerManager)application.getAttribute("controller_manager");
+	// no matter delete comment success, back to comment page
 	if(cm.deleteCommentCtr.deleteComment(request.getParameter("comment_id"))){
 		response.sendRedirect("buyer-personal.jsp?display=comment");
 	}

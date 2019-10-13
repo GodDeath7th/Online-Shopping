@@ -32,7 +32,7 @@ public class UserAuthUnitOfWork {
 		return thisUserAuth;
 	}
 	
-	// remove a user authentication from clean set while not reflect on database
+	// remove log out user
 	public boolean removeUserAuthFromCleanSetByUserId(int userId) {
 		if(loggedUserAuths == null) {
     		loggedUserAuths = new ArrayList<>();
@@ -50,9 +50,20 @@ public class UserAuthUnitOfWork {
 	public UserAuthentication login(String phoneNumber, String password, String userType) {
 		UserAuthentication thisUserAuth = userAuthMapper.getUserAuthByAuthUnits(phoneNumber, password, userType);
 		if(thisUserAuth != null) {
+			// if no user logged 
 			if(loggedUserAuths == null) {
+				// add this user as logged 
 				loggedUserAuths = new ArrayList<>();
 				loggedUserAuths.add(thisUserAuth);
+			}
+			else {
+				// if some users already logged
+				for(UserAuthentication loggedUserAuth: loggedUserAuths) {
+					// if this user is already logged, set user id to -1 so front end can know it is double-logging
+					if(loggedUserAuth.getUserId() == thisUserAuth.getUserId()) {
+						thisUserAuth.setUserId(-1);
+					}
+				}
 			}
 		}
 		return thisUserAuth;

@@ -1,6 +1,7 @@
 package controller;
 
 public class NavbarController extends Controller{
+	// set element of navigation bar
 	public String setNavbarContent(String userType) {
 		String htmlText = "";
 		if(userType.equals("buyer")) {

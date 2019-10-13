@@ -54,6 +54,7 @@ public class SellerOrientedItemUnitOfWork{
     	return true;
     }
         
+ // get item by a range, what is range can be found in item mapper
     public ArrayList<SellerOrientedItem> getItemsByRange(String range, String[] parameters){
     	ArrayList<SellerOrientedItem> allItems = itemMapper.getItemsByRange(range, parameters);
     	return allItems;

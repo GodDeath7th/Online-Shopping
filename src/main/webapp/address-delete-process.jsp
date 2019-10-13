@@ -8,6 +8,7 @@
 	ArrayList<Address> addresses = cm.bc.getAddresses(Integer.parseInt(request.getParameter("user_id")));
 	String addrId = String.valueOf(addresses.get(0).getId());
 	out.print(addrId);
+	// no matter delete address success, back to buyer personal page
 	if(cm.deleteAddrCtr.deleteAddress(addrId)){
 		response.sendRedirect("buyer-personal.jsp?display=address");
 	}

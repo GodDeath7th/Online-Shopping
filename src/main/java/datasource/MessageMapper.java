@@ -63,11 +63,13 @@ public class MessageMapper extends Mapper{
         try {
         	PreparedStatement ps = null;
         	String sql = null;
+        	//first range: message sent by a given user
         	if(range.equals("FROM_NAME")) {
         		sql = "select * from message where from_name = ?";
         		ps = (PreparedStatement) connection.prepareStatement(sql);
         		ps.setString(1, parameters[0]);
         	}
+        	// second range: message sent to a given user
         	else if(range.equals("TO_NAME")) {
         		sql = "select * from message where to_name = ?";
         		ps = (PreparedStatement) connection.prepareStatement(sql);

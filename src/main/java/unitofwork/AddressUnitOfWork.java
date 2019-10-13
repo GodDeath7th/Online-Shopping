@@ -16,11 +16,13 @@ public class AddressUnitOfWork {
 	}
 	
 	public boolean addAddress(Address address, boolean instantCommit) {
+		// lazy load, initialize list when firstly called
 		if(newAddresses == null) {
 			newAddresses = new ArrayList<>();
 		}
 		newAddresses.add(address);
 		
+		// if need this change be committed to database instantly, set this boolean true
 		if(instantCommit) {
 			return doCommit()[0];
 		}

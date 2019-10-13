@@ -59,11 +59,13 @@ public class BuyerMapper extends Mapper{
 		Connection connection = this.getConneciton();
     	Buyer thisBuyer = null;
     	try {
+    		// select buyer table and find buyer whose id equals given id
     		String sql = "select * from buyer where id = ?";
     		PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
     		ps.setInt(1, id);
     		
     		ResultSet rs = ps.executeQuery();
+    		// if result is not null
     		while(rs.next()) {
     			thisBuyer = new Buyer();
     			thisBuyer.setId(rs.getInt("user_id"));
@@ -79,6 +81,7 @@ public class BuyerMapper extends Mapper{
     	}
 	}
 	
+	// change the balance with adding money to it (the number of money could be negative)
 	public boolean changeBalance(int buyerId, float money) {
 		Connection connection = this.getConneciton();
 		try {
@@ -99,6 +102,7 @@ public class BuyerMapper extends Mapper{
 		}
 	}
 	
+	// check whether balance of a buyer is larger than given number of money
 	public boolean hasEnoughBalance(int buyerId, float money) {
 		Connection connection = this.getConneciton();
 		try {
@@ -108,6 +112,7 @@ public class BuyerMapper extends Mapper{
     		
     		ResultSet rs = ps.executeQuery();
     		while(rs.next()) {
+    			// return true if it is larger
     			if(rs.getFloat("balance") > money) {
     				this.closeConnection(connection);
     				return true;

@@ -6,6 +6,7 @@ import dto.Cart;
 
 public class GetCartController extends Controller{
 	public String getCart(String buyerId, boolean enableOperation) {
+		// get all items in cart of a user and set display style to front end
 		String htmlText = "";
 		ArrayList<Cart> thisBuyerCarts = bc.getCart(Integer.parseInt(buyerId));
 		if(thisBuyerCarts == null) {

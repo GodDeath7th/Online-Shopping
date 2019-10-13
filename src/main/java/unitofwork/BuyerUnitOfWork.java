@@ -49,10 +49,12 @@ public class BuyerUnitOfWork {
     	return thisBuyer;
     }
     
+    // change balance of a buyer
     public boolean changeBalance(int buyerId, float money) {
     	return buyerMapper.changeBalance(buyerId, money);
     }
     
+    // check whether balance is enough to purchase
     public boolean hasEnoughBalance(int buyerId, float money) {
     	return buyerMapper.hasEnoughBalance(buyerId, money);
     }

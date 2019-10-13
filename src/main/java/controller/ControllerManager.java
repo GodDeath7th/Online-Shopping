@@ -1,7 +1,7 @@
 package controller;
 
 import domainlogic.BehaviorConductor;
-
+// a class that includes all controllers , so access to any controller can be done by invoking this class
 public class ControllerManager {
 	public BehaviorConductor bc;
 	public NavbarController navbarCtr;

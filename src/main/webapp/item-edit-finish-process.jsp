@@ -13,10 +13,12 @@
 	String price = request.getParameter("price");
 	String stock = request.getParameter("stock");
 	String description = request.getParameter("description");
-
+	
+	// if update an item success, to seller personal page
 	if(cm.updateItemCtr.updateItem(itemId, itemName, price, stock, description)){
 		response.sendRedirect("seller-personal.jsp?display=item");
 	}
+	// else back to item edit page
 	else{
 		response.sendRedirect("item-edit.jsp?info=fail");
 	}

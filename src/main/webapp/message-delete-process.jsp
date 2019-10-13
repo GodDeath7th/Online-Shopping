@@ -4,6 +4,7 @@
 <%@ page import = "dto.UserAuthentication" %>
 <%
 	ControllerManager cm = (ControllerManager)application.getAttribute("controller_manager");
+    // no matter delete message success, back to message page
 	if(cm.deleteMsgCtr.deleteMessage(request.getParameter("message_id"))){
 		response.sendRedirect("message.jsp?display="+request.getParameter("from_url"));
 	}

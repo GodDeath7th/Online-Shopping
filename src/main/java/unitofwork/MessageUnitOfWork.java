@@ -39,6 +39,7 @@ public class MessageUnitOfWork {
 		return true;
 	}
 	
+	// get message by a range, what is range can be found in message mapper
 	public ArrayList<Message> getMessagesByRange(String range, String[] parameters){
 		ArrayList<Message>  thisRangeMessages = messageMapper.getMessagesByRange(range, parameters);
 		return thisRangeMessages;

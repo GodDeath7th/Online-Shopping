@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import dto.Address;
 
 public class GetAddressesController extends Controller{
+	// get address of a user by invoking behavior conductor, enableOperation decides whether button used to edit and delete address
+	// need to be rendered to front end
 	public String getAddress(String userId, boolean enableOperation) {
 		String htmlText = "";
 		ArrayList<Address> thisUserAddresses = bc.getAddresses(Integer.parseInt(userId));

@@ -94,20 +94,24 @@ public class ItemMapper extends Mapper{
     	try {
     		PreparedStatement ps = null;
     		String sql = null;
+    		// first range: item of a seller
     		if(range.equals("SELLER_ID")) {
     			sql = "select * from item where seller_id = ?";
         		ps = (PreparedStatement) connection.prepareStatement(sql);
     			ps.setInt(1, Integer.parseInt(parameters[0]));
     		}
+    		// second range : all item
     		else if(range.equals("ALL")) {
     			sql = "select * from item";
     			ps = (PreparedStatement) connection.prepareStatement(sql);
     		}
+    		// third range: item whose name includes keyword
     		else if(range.equals("KEYWORD")) {
     			sql = "select * from item where item_name like '%"+parameters[0]+"%' "
     					+ "or description like '%"+parameters[0]+"%'";
     			ps = (PreparedStatement) connection.prepareStatement(sql);
     		}
+    		// forth range: an specific item with given id
     		else if(range.equals("ITEM_ID")) {
     			sql = "select * from item where id = ?";
     			ps = (PreparedStatement) connection.prepareStatement(sql);
@@ -144,6 +148,7 @@ public class ItemMapper extends Mapper{
         }
     }
     
+    // set stock of an item by add stock to it, the number of stock could be negative
     public boolean changeStock(int itemId, int stock) {
     	Connection connection = this.getConneciton();
         try {

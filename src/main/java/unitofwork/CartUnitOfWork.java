@@ -53,6 +53,7 @@ public class CartUnitOfWork {
 		return true;
 	}
 	
+	// get all goods in cart for a buyer
 	public ArrayList<Cart> getCartsByBuyerId(int buyerId){
 		ArrayList<Cart> thisBuyerCarts = cartMapper.getCartByBuyerId(buyerId);
 		return thisBuyerCarts;

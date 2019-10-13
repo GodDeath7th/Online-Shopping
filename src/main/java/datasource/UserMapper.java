@@ -120,6 +120,7 @@ public class UserMapper extends Mapper{
     	}
     }
     
+    // is an username already being used
     public boolean isNameUsed(User user) {
     	Connection connection = this.getConneciton();
     	try {
@@ -142,6 +143,7 @@ public class UserMapper extends Mapper{
         } 
     }
     
+    // is a phone number/user type pair already being registered
     public boolean isUserExisted(User user) {
     	Connection connection = this.getConneciton();
     	try {

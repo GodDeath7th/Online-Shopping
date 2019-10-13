@@ -50,6 +50,7 @@ public class SellerUnitOfWork {
     	return thisSeller;
     }
     
+    // change income of a seller
     public boolean changeIncome(int sellerId, float money) {
     	return sellerMapper.changeIncome(sellerId, money);
     }

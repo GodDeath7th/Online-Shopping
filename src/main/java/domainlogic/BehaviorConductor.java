@@ -19,22 +19,25 @@ import dto.UserAuthentication;
 import unitofwork.*;
 
 public class BehaviorConductor {
-	// let unit of work take charge of object in service
-	// initialize all unit of work
-	UserUnitOfWork userUOW;
-	UserAuthUnitOfWork userAuthUOW;
-	BuyerUnitOfWork buyerUOW;
-	SellerUnitOfWork sellerUOW;
-	AddressUnitOfWork addressUOW;
-	CartUnitOfWork cartUOW;
-	OrderUnitOfWork orderUOW;
-	CommentUnitOfWork commentUOW;
-	MessageUnitOfWork messageUOW;
-	SellerOrientedItemUnitOfWork sellerItemUOW;
+	// implementation of action such as log in, resgister is not actually implemented in this class, while
+	// this class will invoke these implementation in corresponding unit of work classes or mappers.
 	
+	UserUnitOfWork userUOW;  // for user mapper and member table
+	UserAuthUnitOfWork userAuthUOW; // for user authentication mapper and member_auth table
+	BuyerUnitOfWork buyerUOW; // for buyer mapper and buyer table
+	SellerUnitOfWork sellerUOW; // for seller mapper and seller table
+	AddressUnitOfWork addressUOW; // for address mapper and address table
+	CartUnitOfWork cartUOW; // for cart mapper and cart table
+	OrderUnitOfWork orderUOW; // for order mapper and cart table
+	CommentUnitOfWork commentUOW; // for comment mapper and comment table
+	MessageUnitOfWork messageUOW; // for message mapper and message table
+	SellerOrientedItemUnitOfWork sellerItemUOW; // for item mapper and item table
+	
+	// each method must acquire this lock first to let function inside being executed
 	boolean isLock = false;
 	
 	public BehaviorConductor() {
+		// initialize all unit of work
 		userUOW = new UserUnitOfWork();
 		userAuthUOW = new UserAuthUnitOfWork();
 		buyerUOW = new BuyerUnitOfWork();
@@ -47,6 +50,7 @@ public class BehaviorConductor {
 		sellerItemUOW = new SellerOrientedItemUnitOfWork();
 	}
 	
+	// each method call this method to wait a lock if it is unavailable
 	public void waitInQueue() {
 		while(isLock) {
 			try {
@@ -56,6 +60,7 @@ public class BehaviorConductor {
 		isLock = true;
 	}
 	
+	// each method call this method to release lock
 	public void doNotifyAll() {
 		isLock = false;
 		notifyAll();
@@ -66,6 +71,7 @@ public class BehaviorConductor {
 		UserAuthentication thisUserAuth = userAuthUOW.login(phoneNumber, password, userType);
 		if(thisUserAuth != null) {
 			User thisUser = userUOW.getUserById(thisUserAuth.getUserId());
+			// this if else statement are temporarily useless after code changes
 			if(thisUser.getUserType().equals("buyer")) {
 				buyerUOW.getBuyerById(thisUser.getId());
 			}
@@ -86,11 +92,13 @@ public class BehaviorConductor {
 	
 	public synchronized boolean register(User user) {
 		waitInQueue();
+		// if this user is already existed
 		if(userUOW.isUserExisted(user)) {
 			doNotifyAll();
 			return false;
 		}
 		
+		// if add user success, add related information into buyer or seller table based on user type
 		if(userUOW.addUser(user, true)){
 			User thisUser = userUOW.getUserByPair(user.getPhoneNumber(), user.getUserType());
 			UserAuthentication thisUserAuth = new UserAuthentication();
@@ -126,6 +134,7 @@ public class BehaviorConductor {
 		}
 	}
 	
+	// check if a user already registered
 	public synchronized boolean isUserExisted(User user) {
 		waitInQueue();
 		boolean isSuccess =  userUOW.isUserExisted(user);
@@ -133,6 +142,7 @@ public class BehaviorConductor {
 		return isSuccess;
 	}
 	
+	// check if a user already logged
 	public synchronized boolean isUserLogged(String phoneNumber, String userType) {
 		waitInQueue();
 		boolean isSuccess = userAuthUOW.isUserLogged(phoneNumber, userType);
@@ -140,6 +150,7 @@ public class BehaviorConductor {
 		return isSuccess;
 	}
 	
+	// get information of a buyer by giving his id
 	public synchronized Buyer getBuyerById(int userId) {
 		waitInQueue();
 		Buyer thisBuyer =  buyerUOW.getBuyerById(userId);
@@ -147,6 +158,7 @@ public class BehaviorConductor {
 		return thisBuyer;
 	}
 	
+	// get information of a seller by giving his id
 	public synchronized Seller getSellerById(int userId) {
 		waitInQueue();
 		Seller thisSeller = sellerUOW.getSellerById(userId);
@@ -168,6 +180,7 @@ public class BehaviorConductor {
 		return isSuccess;
 	}
 	
+	// get all items
 	public synchronized ArrayList<SellerOrientedItem> getAllItems(){
 		waitInQueue();
 		ArrayList<SellerOrientedItem> items = sellerItemUOW.getItemsByRange("ALL", null);
@@ -175,6 +188,7 @@ public class BehaviorConductor {
 		return items;
 	}
 	
+	// get specific item
 	public synchronized ArrayList<SellerOrientedItem> getItemById(String itemId){
 		waitInQueue();
 		ArrayList<SellerOrientedItem> items = sellerItemUOW.getItemsByRange("ITEM_ID", new String[] {itemId});
@@ -182,6 +196,7 @@ public class BehaviorConductor {
 		return items;
 	}
 	
+	// get all items of a seller
 	public synchronized ArrayList<SellerOrientedItem> getItemsBySellerId(String sellerId){
 		waitInQueue();
 		ArrayList<SellerOrientedItem> items = sellerItemUOW.getItemsByRange("SELLER_ID", new String[] {sellerId});
@@ -189,6 +204,7 @@ public class BehaviorConductor {
 		return items;
 	}
 	
+	// search item by keyword
 	public synchronized ArrayList<SellerOrientedItem> getItemsByKeyword(String keyword) {
 		waitInQueue();
 		ArrayList<SellerOrientedItem> items = sellerItemUOW.getItemsByRange("KEYWORD", new String[] {keyword});
@@ -245,6 +261,7 @@ public class BehaviorConductor {
 		return isSuccess;
 	}
 	
+	// change balance to a buyer's account
 	public synchronized boolean changeBalance(int buyerId, float money) {
 		waitInQueue();
 		boolean isSuccess = buyerUOW.changeBalance(buyerId, money);
@@ -252,6 +269,7 @@ public class BehaviorConductor {
 		return isSuccess;
 	}
 	
+	// change stock of a item
 	public synchronized boolean changeStock(int itemId, int stock) {
 		waitInQueue();
 		boolean isSuccess = sellerItemUOW.changeStock(itemId, stock);
@@ -259,6 +277,7 @@ public class BehaviorConductor {
 		return isSuccess;
 	}
 	
+	// change income to a seller's account
 	public synchronized boolean changeIncome(int sellerId, float money) {
 		waitInQueue();
 		boolean isSuccess = sellerUOW.changeIncome(sellerId, money);
@@ -266,12 +285,13 @@ public class BehaviorConductor {
 		return isSuccess;
 	}
 	
+	// purchase items in cart
 	public synchronized String purchase(int userId) {
 		waitInQueue();
 		// get balance of this user
 		Buyer thisBuyer = buyerUOW.getBuyerById(userId);
 		float balance = thisBuyer.getBalance();
-		// calculate total price in cart and check stock from each good during calculation
+		// calculate total price in cart and check stock for each good during calculation
 		float totalPrice = Float.parseFloat("0");
 		ArrayList<Cart> carts = cartUOW.getCartsByBuyerId(userId);
 		for(Cart cart: carts) {
@@ -295,11 +315,11 @@ public class BehaviorConductor {
 			doNotifyAll();
 			return "no_enough_money";
 		}
-		// then purchase
+		// if all pass, then purchase
 		else {
 			ArrayList<Address> thisBuyerAddr = addressUOW.getAddressesByUserId(userId);
 			for(Cart cart: carts) {
-
+				// generate order for each item in cart
 				Order thisOrder = new Order();
 				thisOrder.setAddress(thisBuyerAddr.get(0));
 				thisOrder.setBuyerId(userId);
@@ -312,6 +332,7 @@ public class BehaviorConductor {
 				ArrayList<SellerOrientedItem> correspondingItems = sellerItemUOW.getItemsByRange("ITEM_ID", new String[] {String.valueOf(thisOrder.getItemId())});
 				thisOrder.setSellerId(correspondingItems.get(0).getSellerId());
 				
+				// modify balance , income and stock of related buyer, seller and item
 				buyerUOW.changeBalance(userId, -thisOrder.getTotalPrice());
 				sellerItemUOW.changeStock(thisOrder.getItemId(), -thisOrder.getPurchaseNumber());
 				sellerUOW.changeIncome(thisOrder.getSellerId(), thisOrder.getTotalPrice());

@@ -6,6 +6,7 @@ import dto.Message;
 import dto.SellerOrientedItem;
 
 public class GetReceiveMessagesController extends Controller{
+	// get all messages sent to this user by giving the name of this user and set display style
 	public String GetReceiveMessages(String toName) {
 		ArrayList<Message> thisUserRecvMsg = bc.getReceiveMessages(toName);
 		String htmlText = "";

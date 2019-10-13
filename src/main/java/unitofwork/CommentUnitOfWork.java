@@ -39,6 +39,7 @@ public class CommentUnitOfWork {
 		return true;
 	}
 	
+    // get comment by a range, what is range can be found in comment mapper
 	public ArrayList<Comment> getCommentsByRange(String range, String[] parameters) {
 		ArrayList<Comment> thisRangeComments = commentMapper.getCommentsByRange(range, parameters);
 		return thisRangeComments;

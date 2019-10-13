@@ -79,6 +79,7 @@ public class SellerMapper extends Mapper{
     	}
 	}
 	
+	// change income of a seller, the numberof money will not be negative
 	public boolean changeIncome(int sellerId, float money) {
 		Connection connection = this.getConneciton();
 		try {

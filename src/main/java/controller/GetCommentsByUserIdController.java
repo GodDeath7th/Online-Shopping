@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dto.Comment;
 
 public class GetCommentsByUserIdController extends Controller{
+	// get all comments for an user and set display style to front end
 	public String getCommentByUserId(String userId) {
 		String htmlText = "";
 		ArrayList<Comment> thisUserComments = bc.getCommentsByUserId(Integer.parseInt(userId));

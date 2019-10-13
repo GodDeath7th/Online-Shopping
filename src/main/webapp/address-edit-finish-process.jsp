@@ -9,9 +9,11 @@
     String state = request.getParameter("state");
     String country = request.getParameter("country");
     String zip = request.getParameter("zip");
+    // if update address success, to buyer personal page
 	if(cm.updateAddrCtr.updateAddress(addrId, address, state, country, zip)){
 		response.sendRedirect("buyer-personal.jsp?display=address");
 	}
+    // otherwise, back address edit page with displaying fail info
 	else{
 		response.sendRedirect("address-edit.jsp?info=fail");
 	}

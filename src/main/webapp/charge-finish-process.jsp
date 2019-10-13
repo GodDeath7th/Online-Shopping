@@ -6,9 +6,11 @@
 	ControllerManager cm = (ControllerManager)application.getAttribute("controller_manager");
 	String buyerId = String.valueOf(((UserAuthentication)session.getAttribute("user_auth")).getUserId());
     String money = request.getParameter("charge");
+    // if charge balance success, to buyer personal page
     if(cm.chargeBalanceCtr.chargeBalance(buyerId, money)){
     	response.sendRedirect("buyer-personal.jsp?display=profile");
     }
+    // otherwise back to charge page with fail infor displaying
     else{
     	response.sendRedirect("charge.jsp?info=fail");
     }

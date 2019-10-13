@@ -87,12 +87,15 @@ public class AddressMapper extends Mapper{
         Connection connection = this.getConneciton();
         ArrayList<Address> thisUserAddresses = null;
         try {
+        	// get address by giving user id
         	String sql = "select * from address where user_id = ?";
         	PreparedStatement ps = (PreparedStatement) connection.prepareStatement(sql);
         	ps.setInt(1, userId);
         	
         	ResultSet rs = ps.executeQuery();
+        	// if result is not null, package them into data transfer object
         	while(rs.next()) {
+        		// lazy load
         		if(thisUserAddresses == null) {
         			thisUserAddresses = new ArrayList<>();
         		}

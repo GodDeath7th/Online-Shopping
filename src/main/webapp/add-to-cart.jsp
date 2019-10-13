@@ -24,6 +24,7 @@
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
     
 	
+	<!-- set style of navigation bar -->
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="index.jsp">K-SHOP</a>
       	<div class= "collapse navbar-collapse">

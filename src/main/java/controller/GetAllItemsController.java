@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dto.SellerOrientedItem;
 
 public class GetAllItemsController extends Controller{
+	// get all trade-able items in database and set the display style to front end
 	public String getAllItems(){
 		String htmlText = "";
 		

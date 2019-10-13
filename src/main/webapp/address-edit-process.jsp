@@ -9,6 +9,7 @@
     if(addresses == null){
     	
     }
+    // if address is not null, get existing address data to address edit page for old information pre-fill in blank
     else{
     	String url = "address-edit.jsp?";
     	url = url + "address_id=" + addresses.get(0).getId() + "&";

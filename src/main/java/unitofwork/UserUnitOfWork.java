@@ -52,11 +52,13 @@ public class UserUnitOfWork {
     	User thisUser = userMapper.getUserById(id);
     	return thisUser;
     }
-        
+       
+    // check if a user already registered
     public boolean isUserExisted(User user) {
     	return userMapper.isUserExisted(user) || userMapper.isNameUsed(user);
     }
     
+    // get a user by giving its phone number and user type
     public User getUserByPair(String phoneNumber, String userType) {
     	return userMapper.getUserByPair(phoneNumber, userType);
     }

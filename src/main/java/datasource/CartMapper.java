@@ -86,6 +86,7 @@ public class CartMapper extends Mapper{
         return true;
     }
     
+	// get all items in cart of a buyer
     public ArrayList<Cart> getCartByBuyerId(int userId) {
         Connection connection = this.getConneciton();
         ArrayList<Cart> thisUserCarts = null;

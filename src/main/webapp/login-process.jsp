@@ -15,15 +15,20 @@
    	       ControllerManager cm = (ControllerManager)application.getAttribute("controller_manager");
    	   	   UserAuthentication thisUserAuth = 
    	   			cm.loginCtr.login(request.getParameter("phone_number"),request.getParameter("password"),request.getParameter("user_type"));
+   	   	   // if log authentication fail, back to log in page
    	   	   if(thisUserAuth != null){
+   	   		   // if user already logged, back to log in page
    	   		   if(thisUserAuth.getId() == -1){
    	   			   response.sendRedirect("login.jsp?login_info=logged");
    	   		   }
    	   		   else{
+   	   			  // if success, set user authentication information to session
    	   		   	  session.setAttribute("user_auth", thisUserAuth);
+   	   			  // if this user is buyer, to index page
    	   		   	  if(thisUserAuth.getUserType().equals("buyer")){
    	   		      	response.sendRedirect("index.jsp");
    	   		   	  }
+   	   			  // if this user is seller, to seller-personal page
    	   		   	  else{
    	   		   		response.sendRedirect("seller-personal.jsp"); 
    	   		   	  }

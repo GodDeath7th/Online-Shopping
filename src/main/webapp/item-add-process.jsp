@@ -14,15 +14,12 @@
 	String price = request.getParameter("price");
 	String stock = request.getParameter("stock");
 	String description = request.getParameter("description");
-    out.print(sellerId);
-    out.print(sellerName);
-    out.print(itemName);
-    out.print(price);
-    out.print(stock);
-    out.print(description);
+
+    // if add item success , to seller personal page
 	if(cm.addItemCtr.addItem(sellerId, sellerName, itemName, price, stock, description)){
 		response.sendRedirect("seller-personal.jsp?display=item");
 	}
+    // else back to item add page
 	else{
 		response.sendRedirect("item-add.jsp?info=fail");
 	}

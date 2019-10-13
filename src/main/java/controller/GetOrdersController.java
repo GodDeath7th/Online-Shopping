@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import dto.Order;
 
 public class GetOrdersController extends Controller{
+	// get all orders of a user, if it is buyer to get them, set enableOperation true to allow user delete orders, if it is
+	// seller to get them, set it false to prohibit delete
 	public String getOrders(String userId, boolean enableOperation) {
 		String htmlText = "";
 		ArrayList<Order> thisUserOrders = bc.getOrders(Integer.parseInt(userId)); 

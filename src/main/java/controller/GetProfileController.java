@@ -1,13 +1,11 @@
 package controller;
 
-import java.util.ArrayList;
-
-import dto.Address;
 import dto.Buyer;
 import dto.Seller;
 import dto.User;
 
 public class GetProfileController extends Controller{
+	// get profile of a user by giving user id and set display style
 	public String getProfile(String userId) {
 		String htmlText = "";
 		User thisUser = bc.getProfile(Integer.parseInt(userId));

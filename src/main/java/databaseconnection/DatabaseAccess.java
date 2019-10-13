@@ -14,12 +14,14 @@ public class DatabaseAccess {
 
     }
     
+    // generate connection to database
     public static Connection getconn() throws URISyntaxException, SQLException {
         Connection connection = DriverManager.getConnection(url);
         System.out.println(connection);
         return connection;
     }
 
+    // close given connection
     public static void close(Connection connection){
     	/*
         if(statement != null) {

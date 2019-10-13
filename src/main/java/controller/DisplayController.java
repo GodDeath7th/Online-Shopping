@@ -2,6 +2,7 @@ package controller;
 
 public class DisplayController  extends Controller{
 	public String getDisplay(String display, String type){
+		// this controller generates display style of buyer-personal.jsp, seller-personal.jsp and message.jsp
 		String htmlText = "";
 		if(type.equals("buyer")) {
 			if(display == null || display.equals("profile")) {

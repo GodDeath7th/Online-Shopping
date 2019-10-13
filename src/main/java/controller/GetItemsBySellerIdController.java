@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dto.SellerOrientedItem;
 
 public class GetItemsBySellerIdController extends Controller{
+	// get all items selled by an seller
 	public String getItemsBySellerId(String sellerId){
 		String htmlText = "";
 		int number = 1;

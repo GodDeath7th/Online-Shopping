@@ -6,6 +6,7 @@
 <%
 	ControllerManager cm = (ControllerManager)application.getAttribute("controller_manager");
 	String cartId = request.getParameter("cart_id");
+	// no matter delete an item in cart success, back to cart page
 	if(cm.removeFromCartCtr.removeFromCart(cartId)){
 		response.sendRedirect("cart.jsp");
 	}

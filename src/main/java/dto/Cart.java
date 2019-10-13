@@ -1,7 +1,9 @@
 package dto;
 
 import java.util.ArrayList;
-
+// it is important to know cart here is not stands for whole cart while only an item in cart, 
+// this is way a buyerorienteditem object is here to save information of this item
+// Also, to stands for conceptual cart, it needs ArrayList<Cart>
 public class Cart {
 	private int id;
 	private int userId;

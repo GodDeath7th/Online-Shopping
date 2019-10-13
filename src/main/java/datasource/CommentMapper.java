@@ -65,11 +65,13 @@ public class CommentMapper extends Mapper{
         	connection = this.getConneciton();
     		PreparedStatement ps = null;
     		String sql = null;
+    		// first range: the message of a user 
     		if(range.equals("USER_ID")) {
     			sql = "select * from comment where user_id = ?";
         		ps = (PreparedStatement) connection.prepareStatement(sql);
         		ps.setInt(1, Integer.parseInt(parameters[0]));
     		}
+    		// second range: the message of an item
     		else if(range.equals("ITEM_ID")) {
     			sql = "select * from comment where item_id = ?";
     			ps = (PreparedStatement) connection.prepareStatement(sql);

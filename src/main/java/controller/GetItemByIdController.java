@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dto.SellerOrientedItem;
 
 public class GetItemByIdController extends Controller{
+	// get an item by its id and set display style to front end
 	public String getItemById(String itemId, boolean enableOperationButton) {
 		String htmlText = "";
 		ArrayList<SellerOrientedItem> items = bc.getItemById(itemId);

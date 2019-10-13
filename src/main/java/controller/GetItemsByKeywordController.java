@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dto.SellerOrientedItem;
 
 public class GetItemsByKeywordController extends Controller{
+	// get items by keyword, which is search funciton
 	public String getItemsByKeyword(String keyword){
 		String htmlText = "";
 		int number = 1;

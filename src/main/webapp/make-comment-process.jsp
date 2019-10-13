@@ -11,9 +11,11 @@
     String itemId = request.getParameter("item_id");
     String itemName = request.getParameter("item_name");
     String content = request.getParameter("content");
+    // if make comment success, to item comment page
     if(cm.makeCommentCtr.makeComment(userId, username, itemId, itemName, content)){
     	response.sendRedirect("item-comment.jsp?item_id="+itemId);
     }
+    // otherwise, back to make comment page
     else{
     	response.sendRedirect("make-comment.jsp?info=fail");
     }

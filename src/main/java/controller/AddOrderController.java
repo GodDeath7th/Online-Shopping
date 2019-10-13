@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import dto.Order;
 
 public class AddOrderController extends Controller{
+	// generate order object to add order for a buyer
 	public boolean addOrder(String buyerId, String sellerId, String itemId, String itemName, 
 			String purchaseNumber, String priceForEach) {
 		try {
@@ -19,6 +20,7 @@ public class AddOrderController extends Controller{
 			thisNewOrder.setTotalPrice(thisNewOrder.getPriceForEach()*thisNewOrder.getPurchaseNumber());
 			thisNewOrder.setDate(new Date(new java.util.Date().getTime()));
 			
+			// add order by behavior conductor, return true if success
 			return bc.addOrder(thisNewOrder);
 		}catch(Exception error) {
 			return false;
