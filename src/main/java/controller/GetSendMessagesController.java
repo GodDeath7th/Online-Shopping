@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dto.Message;
 
 public class GetSendMessagesController extends Controller{
+	// get all messages sent by this user by giving the name of this user and set display style
 	public String GetSendMessages(String fromName) {
 		ArrayList<Message> thisUserSendMsg = bc.getSendMessages(fromName);
 		String htmlText = "";

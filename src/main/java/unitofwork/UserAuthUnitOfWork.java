@@ -54,7 +54,6 @@ public class UserAuthUnitOfWork {
 			if(loggedUserAuths == null) {
 				// add this user as logged 
 				loggedUserAuths = new ArrayList<>();
-				loggedUserAuths.add(thisUserAuth);
 			}
 			else {
 				// if some users already logged
@@ -62,8 +61,10 @@ public class UserAuthUnitOfWork {
 					// if this user is already logged, set user id to -1 so front end can know it is double-logging
 					if(loggedUserAuth.getUserId() == thisUserAuth.getUserId()) {
 						thisUserAuth.setUserId(-1);
+						return thisUserAuth;
 					}
 				}
+				loggedUserAuths.add(thisUserAuth);
 			}
 		}
 		return thisUserAuth;
