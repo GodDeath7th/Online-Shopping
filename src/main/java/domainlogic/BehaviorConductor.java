@@ -269,16 +269,15 @@ public class BehaviorConductor {
 	public synchronized String purchase(int userId) {
 		waitInQueue();
 		// get balance of this user
-		Buyer thisBuyer = this.getBuyerById(userId);
+		Buyer thisBuyer = buyerUOW.getBuyerById(userId);
 		float balance = thisBuyer.getBalance();
 		// calculate total price in cart and check stock from each good during calculation
 		float totalPrice = Float.parseFloat("0");
-		ArrayList<Cart> carts = this.getCart(userId);
-		
+		ArrayList<Cart> carts = cartUOW.getCartsByBuyerId(userId);
 		for(Cart cart: carts) {
 			int eachRequiredNumber = cart.getBuyerItem().getNumber();
-
-			ArrayList<SellerOrientedItem> correspondingItems = this.getItemById(String.valueOf(cart.getBuyerItem().getItemId()));
+			
+			ArrayList<SellerOrientedItem> correspondingItems = sellerItemUOW.getItemsByRange("ITEM_ID", new String[] {String.valueOf(cart.getBuyerItem().getItemId())});
 			int eachLeftStock = correspondingItems.get(0).getStock();
 			// if any one of good in cart has no enough stock
 			if(eachLeftStock < eachRequiredNumber) {
@@ -298,8 +297,9 @@ public class BehaviorConductor {
 		}
 		// then purchase
 		else {
-			ArrayList<Address> thisBuyerAddr = this.getAddresses(userId);
+			ArrayList<Address> thisBuyerAddr = addressUOW.getAddressesByUserId(userId);
 			for(Cart cart: carts) {
+
 				Order thisOrder = new Order();
 				thisOrder.setAddress(thisBuyerAddr.get(0));
 				thisOrder.setBuyerId(userId);
@@ -309,14 +309,14 @@ public class BehaviorConductor {
 				thisOrder.setPurchaseNumber(cart.getBuyerItem().getNumber());
 				thisOrder.setTotalPrice(thisOrder.getPriceForEach()*thisOrder.getPurchaseNumber());
 				thisOrder.setDate(new Date(new java.util.Date().getTime()));
-				ArrayList<SellerOrientedItem> correspondingItems = this.getItemById(String.valueOf(thisOrder.getItemId()));
+				ArrayList<SellerOrientedItem> correspondingItems = sellerItemUOW.getItemsByRange("ITEM_ID", new String[] {String.valueOf(thisOrder.getItemId())});
 				thisOrder.setSellerId(correspondingItems.get(0).getSellerId());
 				
-				this.changeBalance(userId, -thisOrder.getTotalPrice());
-				this.changeStock(thisOrder.getItemId(), -thisOrder.getPurchaseNumber());
-				this.changeIncome(thisOrder.getSellerId(), thisOrder.getTotalPrice());
+				buyerUOW.changeBalance(userId, -thisOrder.getTotalPrice());
+				sellerItemUOW.changeStock(thisOrder.getItemId(), -thisOrder.getPurchaseNumber());
+				sellerUOW.changeIncome(thisOrder.getSellerId(), thisOrder.getTotalPrice());
 				orderUOW.addOrder(thisOrder, true);
-				this.removeFromCart(cart);
+				cartUOW.deleteCart(cart, true);
 			}
 		}
 		doNotifyAll();
