@@ -73,10 +73,7 @@
 	 </div>
      <div class="container">
 	  <p align = "center">Total: <%=totalPrice %></p>
-  	 </div>
-  	 <div class = "container" style = "width:100px;margin:50px auto"><a class = 'btn btn-success' href = 'checkout-process.jsp'>Check out</a>
-  	 </div>
-  	 <%
+	  <%
            if(request.getParameter("info") != null){
         	   if(request.getParameter("info").equals("no_enough_money")){
         	       out.println("<p style='color:red;''>Your balance is not enough!</p>");
@@ -86,6 +83,9 @@
            	   }
            }
        %>
+  	 </div>
+  	 <div class = "container" style = "width:100px;margin:50px auto"><a class = 'btn btn-success' href = 'checkout-process.jsp'>Check out</a>
+  	 </div>
     </div>
 
 	
