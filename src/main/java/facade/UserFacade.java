@@ -5,11 +5,8 @@ import java.sql.Date;
 import dto.User;
 
 public class UserFacade {
-	private User user;
+	private User user = new User();
 	public void setUser(String username, String password, String phoneNumber, String userType, Date date) {
-		if(user == null) {
-			user = new User();
-		}
 		user.setUsername(username);
 		user.setPassword(password);
 		user.setPhoneNumber(phoneNumber);

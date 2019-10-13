@@ -3,12 +3,9 @@ package facade;
 import dto.Buyer;
 
 public class BuyerFacade {
-	private Buyer buyer;
+	private Buyer buyer = new Buyer();
 	
 	private void setBuyer(float balance) {
-		if(buyer == null) {
-			buyer = new Buyer();
-		}
 		buyer.setBalnce(balance);
 	}
 	

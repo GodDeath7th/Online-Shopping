@@ -5,12 +5,9 @@ import java.sql.Date;
 import dto.Comment;
 
 public class CommentFacade {
-	private Comment comment;
+	private Comment comment = new Comment();
 	
 	public void setComment(int userId, String username, int itemId, String itemName, String content) {
-		if(comment == null) {
-			comment = new Comment();
-		}
 		comment.setUserId(userId);
 		comment.setUsername(username);
 		comment.setItemId(itemId);

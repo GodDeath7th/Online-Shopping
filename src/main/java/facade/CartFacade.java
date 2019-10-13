@@ -4,11 +4,8 @@ import dto.BuyerOrientedItem;
 import dto.Cart;
 
 public class CartFacade {
-	private Cart cart;
+	private Cart cart = new Cart();
 	public void setCart(int userId, int itemId, String itemName, float price, int number) {
-		if(cart == null) {
-			cart = new Cart();
-		}
 		BuyerOrientedItem thisItem = new BuyerOrientedItem();
 		thisItem.setItemId(itemId);
 		thisItem.setName(itemName);

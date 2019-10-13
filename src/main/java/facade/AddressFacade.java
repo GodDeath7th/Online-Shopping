@@ -3,11 +3,8 @@ package facade;
 import dto.Address;
 
 public class AddressFacade {
-	private Address addr;
+	private Address addr = new Address();
 	public void setAddress(int userId, String address, String country, String state, String zip) {
-		if(addr == null) {
-			addr = new Address();
-		}
 		addr.setUserId(userId);
 		addr.setAddress(address);
 		addr.setState(state);

@@ -4,11 +4,8 @@ import dto.Address;
 import dto.Order;
 
 public class OrderFacade {
-	public Order order;
+	public Order order = new Order();
 	public void setOrder(int userId, int itemId, int number, float price, Address addr) {
-		if(order == null) {
-			order = new Order();
-		}
 		order.setBuyerId(userId);
 		order.setItemId(itemId);
 		order.setPurchaseNumber(number);

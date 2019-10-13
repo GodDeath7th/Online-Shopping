@@ -3,11 +3,8 @@ package facade;
 import dto.SellerOrientedItem;
 
 public class SellerOrientedItemFacade {
-	private SellerOrientedItem sellerItem;
+	private SellerOrientedItem sellerItem = new SellerOrientedItem();
 	public void setSellerItem(int id, int sellerId, String sellerName, String itemName, float price, int stock, String description) {
-		if(sellerItem == null) {
-			sellerItem = new SellerOrientedItem();
-		}
 		sellerItem.setId(id);
 		sellerItem.setSellerId(sellerId);
 		sellerItem.setName(itemName);

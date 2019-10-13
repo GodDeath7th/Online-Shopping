@@ -203,7 +203,7 @@ public class BehaviorConductor {
 		return carts;
 	}
 	
-	public boolean addToCart(Cart cart) {
+	public synchronized boolean addToCart(Cart cart) {
 		waitInQueue();
 		boolean isSuccess = cartUOW.addCart(cart, true);
 		doNotifyAll();
@@ -224,7 +224,7 @@ public class BehaviorConductor {
 		return addrs;
 	}
 	
-	public boolean addAddress(Address address) {
+	public synchronized boolean addAddress(Address address) {
 		waitInQueue();
 		boolean isSuccess = addressUOW.addAddress(address, true);
 		doNotifyAll();
