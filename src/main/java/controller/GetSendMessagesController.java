@@ -20,7 +20,7 @@ public class GetSendMessagesController extends Controller{
 				htmlText = htmlText + "<div class = 'container rounded border border-dark' style='margin:20px auto'>";
 				htmlText = htmlText + "<p>To: "+eachSendMsg.getToName()+"</p>";
 				htmlText = htmlText + "<p>Content: "+eachSendMsg.getContent()+"</p>";
-				htmlText = htmlText + "<p>Date $"+eachSendMsg.getDate()+"</p>";
+				htmlText = htmlText + "<p>Date: "+eachSendMsg.getDate()+"</p>";
 				htmlText = htmlText + "<div class = 'row' style = 'margin:10px auto'>";
 				htmlText = htmlText + "<a class = 'btn btn-success' style = 'margin:5px' href = 'send-message.jsp?to_name="+eachSendMsg.getToName()+"'>One more</a>";
 				htmlText = htmlText + "<a class = 'btn btn-danger' style = 'margin:5px' href = 'message-delete-process.jsp?message_id="+eachSendMsg.getId()+"&from_url=send_message'>Delete</a>";
